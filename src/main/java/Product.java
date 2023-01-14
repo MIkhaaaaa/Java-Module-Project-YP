@@ -7,16 +7,32 @@ public class Product {
         this.name = name;
     }
 
+
     public static void calculation(int persons, double total) {
         String text = "Итого счет на одного человека будет %.2f %s";
+        String rubles = "";
         double result = total / persons;
-        String rub = "рубль";
-        if (Math.floor(result) >= 5 ) {
-            rub = "рублей";
-        } else if (Math.floor(result) < 5 && Math.floor(result) > 1){
-            rub = "рубля";
+        int rub = (int) Math.floor(result);
+        if (rub < 0) {
+            System.out.println("Ошибка, попробуйте снова!");
+        } else {
+            if ((rub % 100) >= 11 && (rub % 100) <= 19) {
+                rubles = "рублей";
+            } else {
+                switch (rub % 10) {
+                    case 1:
+                        rubles = "рубль";
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        rubles = "рубля";
+                        break;
+                    default:
+                        rubles = "рублей";
+                }
+            }
         }
-        text = String.format(text, result,rub);
-        System.out.println(text);
+        System.out.printf((text) + "%n", result, rubles);
     }
 }
